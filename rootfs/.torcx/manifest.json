@@ -1,0 +1,16 @@
+{
+  "kind": "image-manifest-v0",
+  "value": {
+    "bin": [
+      "/bin/containerd",
+      "/bin/docker",
+      "/bin/dockerd",
+      "/bin/runc"
+    ],
+    "units": [
+      "/lib/systemd/system/docker.service",
+      "/lib/systemd/system/docker.socket",
+      "/lib/systemd/system/containerd.serivce"
+    ]
+  }
+}
