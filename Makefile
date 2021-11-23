@@ -1,5 +1,5 @@
 TORCX_PKG = docker\:9999
-ARTIFACTS = rootfs/bin/runc
+ARTIFACTS = rootfs/bin/runc rootfs/bin/docker
 ARCH := $(shell go env GOARCH)
 
 .PHONY: build
@@ -20,7 +20,11 @@ torcx.tgz: $(ARTIFACTS)
 
 build/runc:
 	git clone https://github.com/opencontainers/runc $@
-
 rootfs/bin/runc: build/runc
 	$(MAKE) -C $< release
 	install -m 0755 -D $</release/*/runc.$(ARCH) $@
+
+build/docker:
+	git clone https://github.com/moby/moby $@
+rootfs/bin/docker: build/docker
+
