@@ -1,5 +1,5 @@
 TORCX_PKG = docker\:9999
-ARTIFACTS = rootfs/bin/runc rootfs/bin/docker
+ARTIFACTS = rootfs/bin/runc rootfs/bin/docker rootfs/bin/dockerd
 ARCH := $(shell go env GOARCH)
 
 .PHONY: build
@@ -26,5 +26,20 @@ rootfs/bin/runc: build/runc
 
 build/docker:
 	git clone https://github.com/moby/moby $@
-rootfs/bin/docker: build/docker
+rootfs/bin/dockerd: build/docker
+	$(MAKE) -C $< binary
+	cd $</bundles/binary-daemon && \
+	  install -m 0755 -D -t $(PWD)/rootfs/bin containerd containerd-shim containerd-shim-runc-v2 ctr docker-init docker-proxy dockerd
 
+build/docker-cli:
+	git clone https://github.com/docker/cli $@
+	mkdir -p build/src/github.com/docker
+	ln -sf ../../../docker-cli build/src/github.com/docker/cli
+rootfs/bin/docker: build/docker-cli
+	DISABLE_WARN_OUTSIDE_CONTAINER=1 GOPATH=$(PWD)/build $(MAKE) -C $< binary
+	cd $</build/ && \
+	  install -m 0755 -D -t $(PWD)/rootfs/bin docker
+
+.PHONY: clean
+clean:
+	rm -rf rootfs/bin

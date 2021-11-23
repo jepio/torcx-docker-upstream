@@ -1,2 +1,4 @@
 *torcx.tgz
 *torcx.squashfs
+build/*
+rootfs/bin/*
