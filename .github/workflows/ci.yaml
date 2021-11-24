@@ -4,6 +4,10 @@ on:
     # * is a special character in YAML so you have to quote this string
     - cron:  '30 17 * * *'
   push:
+  workflow_dispatch:
+    inputs:
+      releasename:
+        required: true
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -25,4 +29,26 @@ jobs:
       with:
         name: artifacts
         path: |
+          *.torcx.*
+  publish:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    needs: ci
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch
+      uses: actions/download-artifact@v2
+      with:
+        name: artifacts
+    - name: Rename
+      run: |
+        for file in *.torcx.*; do
+          mv ${file} ${file/_/:}
+        done
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: ${{ github.event.inputs.releasename }}
+        files: |
           *.torcx.*
