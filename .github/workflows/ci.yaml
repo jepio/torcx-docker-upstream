@@ -47,11 +47,6 @@ jobs:
           mv ${file} ${file/_/:}
           echo ${file}
         done
-    - name: Create tag
-      uses: mathieudutour/github-tag-action@v5.6
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        custom_tag: ${{ github.event.inputs.releasename }}
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
