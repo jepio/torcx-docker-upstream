@@ -1,0 +1,44 @@
+{
+  "ignition": {
+    "config": {},
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "2.3.0"
+  },
+  "networkd": {},
+  "passwd": {},
+  "storage": {
+    "files": [
+      {
+        "filesystem": "root",
+        "path": "/var/lib/torcx/store/docker:9999.torcx.squashfs",
+        "contents": {
+          "source": "https://github.com/jepio/torcx-docker-upstream/releases/latest/download/docker.9999.torcx.squashfs",
+          "verification": {}
+        },
+        "mode": 420
+      },
+      {
+        "filesystem": "root",
+        "path": "/etc/torcx/next-profile",
+        "contents": {
+          "source": "data:,docker%0A",
+          "verification": {}
+        },
+        "mode": 420
+      },
+      {
+        "filesystem": "root",
+        "path": "/etc/torcx/profiles/docker.json",
+        "contents": {
+          "source": "data:,%7B%0A%20%20%22kind%22%3A%20%22profile-manifest-v0%22%2C%0A%20%20%22value%22%3A%20%7B%0A%20%20%20%20%22images%22%3A%20%5B%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22name%22%3A%20%22docker%22%2C%0A%20%20%20%20%20%20%20%20%22reference%22%3A%20%229999%22%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D%0A",
+          "verification": {}
+        },
+        "mode": 420
+      }
+    ]
+  },
+  "systemd": {}
+}

@@ -3,7 +3,7 @@ ARTIFACTS = rootfs/bin/runc rootfs/bin/docker rootfs/bin/dockerd
 ARCH := $(shell go env GOARCH)
 
 .PHONY: build
-build: $(TORCX_PKG).torcx.squashfs $(TORCX_PKG).torcx.tgz
+build: config.json $(TORCX_PKG).torcx.squashfs $(TORCX_PKG).torcx.tgz
 	
 torcx.squashfs: $(ARTIFACTS)
 	mksquashfs rootfs/ $@ -noappend -all-root
@@ -43,3 +43,6 @@ rootfs/bin/docker: build/docker-cli
 .PHONY: clean
 clean:
 	rm -rf rootfs/bin
+
+config.json: config.yaml
+	ct --files-dir . --pretty <$< >$@

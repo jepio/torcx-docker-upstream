@@ -1,0 +1,15 @@
+storage:
+  files:
+  - path: /var/lib/torcx/store/docker:9999.torcx.squashfs
+    mode: 0644
+    contents:
+      remote:
+        url: "https://github.com/jepio/torcx-docker-upstream/releases/latest/download/docker.9999.torcx.squashfs"
+  - path: /etc/torcx/next-profile
+    mode: 0644
+    contents:
+      local: etc/torcx/next-profile
+  - path: /etc/torcx/profiles/docker.json
+    mode: 0644
+    contents:
+      local: etc/torcx/profiles/docker.json
