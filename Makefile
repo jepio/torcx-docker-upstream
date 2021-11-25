@@ -36,7 +36,7 @@ build/docker-cli:
 	mkdir -p build/src/github.com/docker
 	ln -sf ../../../docker-cli build/src/github.com/docker/cli
 rootfs/bin/docker: build/docker-cli
-	DISABLE_WARN_OUTSIDE_CONTAINER=1 GOPATH=$(PWD)/build $(MAKE) -C $< binary
+	DISABLE_WARN_OUTSIDE_CONTAINER=1 GOPATH=$(PWD)/build $(MAKE) -C $< dynbinary
 	cd $</build/ && \
 	  install -m 0755 -D -t $(PWD)/rootfs/bin docker
 

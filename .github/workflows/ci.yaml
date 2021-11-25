@@ -10,7 +10,7 @@ on:
         required: true
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - name: Set up Go 1.17
       uses: actions/setup-go@v2
