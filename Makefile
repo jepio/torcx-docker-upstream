@@ -45,4 +45,4 @@ clean:
 	rm -rf rootfs/bin
 
 config.json: config.yaml
-	ct --files-dir . --pretty <$< >$@
+	docker run --rm -i -v $(PWD):/work -w /work flatcar-linux/ct --files-dir . --pretty <$< >$@
