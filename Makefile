@@ -29,7 +29,7 @@ build/docker:
 rootfs/bin/dockerd: build/docker
 	$(MAKE) -C $< binary
 	cd $</bundles/binary-daemon && \
-	  install -m 0755 -D -t $(PWD)/rootfs/bin containerd containerd-shim containerd-shim-runc-v2 ctr docker-init docker-proxy dockerd
+	  install -m 0755 -D -t $(PWD)/rootfs/bin containerd containerd-shim-runc-v2 ctr docker-init docker-proxy dockerd
 
 build/docker-cli:
 	git clone https://github.com/docker/cli $@
